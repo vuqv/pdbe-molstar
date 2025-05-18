@@ -130,13 +130,19 @@
     fetchJSONData();
 
     function toggleSurface(instance) {
+        if (showSurface) {
+            //     currently surface is shown. remove it
+            surface.then(x => instance.deleteStructure(x));
+            bond.then(x => instance.deleteStructure(x));
+        } else {
+            const opacity = 0.9;
+            surface = instance.renderSurface(0, triangles, opacity);
+            bond = instance.renderBond(0, bond_coords[0], bond_coords[1]);
 
-        const opacity = 0.9;
-        surface = instance.renderSurface(0, triangles, opacity);
-        bond = instance.renderBond(0, bond_coords[0], bond_coords[1]);
-
+        }
 
         showSurface = !showSurface;
+        // console.log(showSurface)
     }
 
     toggleSurface
